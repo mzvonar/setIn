@@ -46,7 +46,7 @@ const newContext = setIn(context, ['user', 'profile', 'address', 'country'], 'sl
             profile: {
                 gender: 'male',
                 address: {
-                    country: 'slovakia
+                    country: 'slovakia'
                 }
             }
         }
