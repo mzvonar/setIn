@@ -5,7 +5,7 @@
  * @param {*} value
  * @return {Object} Copy of object with new value set
  */
-module.exports = function setIn(context, path, value) {
+module.exports = function setIn(context, path, value, push) {
     if(!path) {
         throw new Error('Path is undefined');
     }
@@ -29,7 +29,14 @@ module.exports = function setIn(context, path, value) {
     var contextType = Object.prototype.toString.call(context);
     if(contextType === '[object Array]') {
         var copy = [].concat(context);
-        copy[currentPathPart] = currentValue;
+
+        if(push && path.length === 0) {
+            copy.push(currentValue);
+        }
+        else {
+            copy[currentPathPart] = currentValue;
+        }
+
         return copy;
     }
     else if(contextType === '[object Object]') {
