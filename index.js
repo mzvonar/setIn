@@ -3,6 +3,7 @@
  * @param {Object} context
  * @param {Array|string} path
  * @param {*} value
+ * @param {Boolean} push If set to true and last object in path is Array value is pushed to the array
  * @return {Object} Copy of object with new value set
  */
 module.exports = function setIn(context, path, value, push) {
