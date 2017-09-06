@@ -6,7 +6,8 @@ describe('setIn', function() {
         user: {
             profile: {
                 gender: 'female'
-            }
+            },
+            ids: [1]
         },
         type: 'best'
     };
@@ -19,7 +20,8 @@ describe('setIn', function() {
             user: {
                 profile: {
                     gender: 'male'
-                }
+                },
+                ids: [1]
             },
             type: 'best'
         });
@@ -33,7 +35,8 @@ describe('setIn', function() {
             user: {
                 profile: {
                     gender: 'female'
-                }
+                },
+                ids: [1]
             },
             type: 'bestest'
         });
@@ -47,7 +50,8 @@ describe('setIn', function() {
             user: {
                 profile: {
                     gender: 'female'
-                }
+                },
+                ids: [1]
             },
             type: 'best',
             hero: 'batman'
@@ -65,9 +69,43 @@ describe('setIn', function() {
                     address: {
                         country: 'slovakia'
                     }
-                }
+                },
+                ids: [1]
             },
             type: 'best'
         });
+    });
+
+    it('should push value to array', function() {
+        const newContext = setIn(context, ['user', 'ids'], 2, true);
+
+        expect(newContext).toNotBe(context);
+        expect(newContext).toEqual({
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1, 2]
+            },
+            type: 'best'
+        });
+    });
+
+    it('should throw an error if trying to push to non array', function() {
+        const context = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: {
+                    1: true
+                }
+            },
+            type: 'best'
+        };
+
+        expect(function() {
+            setIn(context, ['user', 'ids'], 2, true);
+        }).toThrow('Cannot push to [object Object]');
     });
 });

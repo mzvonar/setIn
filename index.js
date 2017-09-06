@@ -25,24 +25,32 @@ module.exports = function setIn(context, path, value, push) {
         context = isNaN(currentPathPart) ? {} : [];
     }
 
-    var currentValue = path.length === 0 ? value : setIn(context[currentPathPart], path, value);
+    var currentValue = path.length === 0 ? value : setIn(context[currentPathPart], [].concat(path), value, push);
 
     var contextType = Object.prototype.toString.call(context);
     if(contextType === '[object Array]') {
         var copy = [].concat(context);
 
-        if(push && path.length === 0) {
-            copy.push(currentValue);
-        }
-        else {
-            copy[currentPathPart] = currentValue;
-        }
+        copy[currentPathPart] = currentValue;
+
 
         return copy;
     }
     else if(contextType === '[object Object]') {
         var newValue = {};
-        newValue[currentPathPart] = currentValue;
+
+        if(push && path.length === 0) {
+            contextType = Object.prototype.toString.call(context[currentPathPart]);
+            if(contextType !== '[object Array]') {
+                throw new Error('Cannot push to ' + contextType);
+            }
+
+            newValue[currentPathPart] = [].concat(context[currentPathPart]);
+            newValue[currentPathPart].push(value);
+        }
+        else {
+            newValue[currentPathPart] = currentValue;
+        }
 
         return Object.assign({}, context, newValue);
     }
