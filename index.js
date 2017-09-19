@@ -22,7 +22,7 @@ module.exports = function setIn(context, path, value, push) {
     }
 
     if(!context) {
-        context = isNaN(currentPathPart) ? {} : [];
+        context = {};
     }
 
     var currentValue = path.length === 0 ? value : setIn(context[currentPathPart], [].concat(path), value, push);
