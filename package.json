@@ -1,6 +1,6 @@
 {
   "name": "@mzvonar/setin",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Sets value to object according to provided path",
   "main": "index.js",
   "scripts": {
