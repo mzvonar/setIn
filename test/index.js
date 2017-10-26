@@ -42,6 +42,22 @@ describe('setIn', function() {
         });
     });
 
+    it('should set value and return new copy of object by number path', function() {
+        const newContext = setIn(context, 1, 'value');
+
+        expect(newContext).toNotBe(context);
+        expect(newContext).toEqual({
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1]
+            },
+            type: 'best',
+            1: 'value'
+        });
+    });
+
     it('should add value into new key and return new copy of object by string path', function() {
         const newContext = setIn(context, 'hero', 'batman');
 
