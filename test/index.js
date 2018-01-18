@@ -233,6 +233,25 @@ describe('mutableSetIn', function() {
         expect(context).toEqual(output);
     });
 
+    it('should set value and return modified object by number path', function() {
+        const newContext = mutableSetIn(context, 1, 'value');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1]
+            },
+            type: 'best',
+            1: 'value'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
     it('should add value into new key and return modified object by string path', function() {
         const newContext = mutableSetIn(context, 'hero', 'batman');
 
