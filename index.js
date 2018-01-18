@@ -13,7 +13,8 @@ function createSetIn(mutable) {
             throw new Error('Path is undefined');
         }
 
-        if(typeof path === 'string') {
+        const pathType = Object.prototype.toString.call(path);
+        if(pathType !== '[object Undefined]' && pathType !== '[object Array]') {
             path = [path];
         }
 
