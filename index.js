@@ -17,6 +17,9 @@ function createSetIn(mutable) {
         if(pathType !== '[object Undefined]' && pathType !== '[object Array]') {
             path = [path];
         }
+        else {
+            path = [].concat(path);
+        }
 
         var currentPathPart = path.shift();
 
@@ -28,7 +31,7 @@ function createSetIn(mutable) {
             context = {};
         }
 
-        var currentValue = path.length === 0 ? value : setIn(context[currentPathPart], [].concat(path), value, push);
+        var currentValue = path.length === 0 ? value : setIn(context[currentPathPart], path, value, push);
 
         var contextType = Object.prototype.toString.call(context);
         if(contextType === '[object Array]') {

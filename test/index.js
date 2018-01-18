@@ -180,6 +180,13 @@ describe('setIn', function() {
             ]
         });
     });
+
+    it('should not mutate path argument', function(){
+        const path = ['user', 'profile', 'gender'];
+        setIn(context, path, 'male');
+
+        expect(path).toEqual(['user', 'profile', 'gender']);
+    });
 });
 
 describe('mutableSetIn', function() {
@@ -389,5 +396,12 @@ describe('mutableSetIn', function() {
         expect(newContext).toBe(context);
         expect(newContext).toEqual(output);
         expect(context).toEqual(output);
+    });
+
+    it('should not mutate path argument', function(){
+        const path = ['user', 'profile', 'gender'];
+        mutableSetIn(context, path, 'male');
+
+        expect(path).toEqual(['user', 'profile', 'gender']);
     });
 });
