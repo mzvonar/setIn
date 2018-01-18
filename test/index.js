@@ -1,5 +1,7 @@
 const expect = require('expect');
 const setIn = require('./../index');
+const mutableSetIn = require('./../index').mutableSetIn;
+
 
 describe('setIn', function() {
     const context = {
@@ -161,5 +163,196 @@ describe('setIn', function() {
                 'three'
             ]
         });
+    });
+});
+
+describe('mutableSetIn', function() {
+    let context;
+
+    beforeEach(function(){
+        context = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1]
+            },
+            type: 'best'
+        };
+    });
+
+    it('should set value and return modified object by Array path', function() {
+        const newContext = mutableSetIn(context, ['user', 'profile', 'gender'], 'male');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'male'
+                },
+                ids: [1]
+            },
+            type: 'best'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should set value and return modified object by string path', function() {
+        const newContext = mutableSetIn(context, 'type', 'bestest');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1]
+            },
+            type: 'bestest'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should add value into new key and return modified object by string path', function() {
+        const newContext = mutableSetIn(context, 'hero', 'batman');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1]
+            },
+            type: 'best',
+            hero: 'batman'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should add value into new nested keys and return modified object by Array path', function() {
+        const newContext = mutableSetIn(context, ['user', 'profile', 'address', 'country'], 'slovakia');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female',
+                    address: {
+                        country: 'slovakia'
+                    }
+                },
+                ids: [1]
+            },
+            type: 'best'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should push value to array', function() {
+        const newContext = mutableSetIn(context, ['user', 'ids'], 2, true);
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1, 2]
+            },
+            type: 'best'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should throw an error if trying to push to non array', function() {
+        const context = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: {
+                    1: true
+                }
+            },
+            type: 'best'
+        };
+
+        expect(function() {
+            mutableSetIn(context, ['user', 'ids'], 2, true);
+        }).toThrow('Cannot push to [object Object]');
+    });
+
+    it('should create contest object with numeric key if it does not exist', function() {
+        const newContext = mutableSetIn(context, ['user', 3], 'three');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1],
+                3: 'three'
+            },
+            type: 'best'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should add item to array if path part is number and context is array', function() {
+        const newContext = mutableSetIn(context, ['user', 'ids', 3], 'three');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1,,,'three']
+            },
+            type: 'best'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should set item in array if path part is number and context is array', function() {
+        const context = {
+            numbers: [
+                'zero',
+                'one',
+                'two',
+                'three'
+            ]
+        };
+
+        const newContext = mutableSetIn(context, ['numbers', 1], 'ein');
+
+        const output = {
+            numbers: [
+                'zero',
+                'ein',
+                'two',
+                'three'
+            ]
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
     });
 });
