@@ -187,6 +187,24 @@ describe('setIn', function() {
 
         expect(path).toEqual(['user', 'profile', 'gender']);
     });
+
+    it('should throw error if path is undefined', function(){
+        expect(function(){
+            setIn(context);
+        }).toThrow('Path is undefined');
+    });
+
+    it('should throw error if path part is undefined', function(){
+        expect(function(){
+            setIn(context, ['user', undefined]);
+        }).toThrow('Path part is undefined');
+    });
+
+    it('should throw error trying ot add property to non object/array', function(){
+        expect(function(){
+            setIn(context, ['type', 'subtype'], 'subway');
+        }).toThrow('Trying to add property to [object String]');
+    });
 });
 
 describe('mutableSetIn', function() {
@@ -403,5 +421,23 @@ describe('mutableSetIn', function() {
         mutableSetIn(context, path, 'male');
 
         expect(path).toEqual(['user', 'profile', 'gender']);
+    });
+
+    it('should throw error if path is undefined', function(){
+        expect(function(){
+            mutableSetIn(context);
+        }).toThrow('Path is undefined');
+    });
+
+    it('should throw error if path part is undefined', function(){
+        expect(function(){
+            mutableSetIn(context, ['user', undefined]);
+        }).toThrow('Path part is undefined');
+    });
+
+    it('should throw error trying ot add property to non object/array', function(){
+        expect(function(){
+            mutableSetIn(context, ['type', 'subtype'], 'subway');
+        }).toThrow('Trying to add property to [object String]');
     });
 });

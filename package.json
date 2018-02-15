@@ -1,7 +1,7 @@
 {
   "name": "@mzvonar/setin",
   "version": "0.0.11",
-  "description": "Sets value to object according to provided path",
+  "description": "Sets value to object according to provided path and returns copy",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -14,7 +14,9 @@
   "keywords": [
     "setIn",
     "set",
-    "in"
+    "in",
+    "copy",
+    "immutable"
   ],
   "author": "Martin Zvonar <riffmaker@gmail.com> (martinzvonar.sk)",
   "license": "MIT",

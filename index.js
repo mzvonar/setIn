@@ -43,7 +43,7 @@ function createSetIn(mutable) {
             return copy;
         }
         else if(contextType === '[object Object]') {
-            var newValue = mutable ? context : {};
+            var copy = mutable ? context : {};
 
             if(push && path.length === 0) {
                 contextType = Object.prototype.toString.call(context[currentPathPart]);
@@ -51,14 +51,14 @@ function createSetIn(mutable) {
                     throw new Error('Cannot push to ' + contextType);
                 }
 
-                newValue[currentPathPart] = mutable ? context[currentPathPart] : [].concat(context[currentPathPart]);
-                newValue[currentPathPart].push(value);
+                copy[currentPathPart] = mutable ? context[currentPathPart] : [].concat(context[currentPathPart]);
+                copy[currentPathPart].push(value);
             }
             else {
-                newValue[currentPathPart] = currentValue;
+                copy[currentPathPart] = currentValue;
             }
 
-            return mutable ? context : Object.assign({}, context, newValue);
+            return mutable ? context : Object.assign({}, context, copy);
         }
         else {
             throw new Error('Trying to add property to ' + contextType);
