@@ -3,7 +3,6 @@
   "version": "0.0.15",
   "description": "Sets value to object according to provided path and returns copy",
   "main": "dist/index.js",
-  "module": "index.js",
   "scripts": {
     "build": "NODE_ENV=production babel index.js -d dist --ignore 'test/*' --copy-files",
     "prepublish": "npm run build",
@@ -15,8 +14,7 @@
     "url": "git+https://github.com/mzvonar/setIn.git"
   },
   "files": [
-    "dist",
-    "index.js"
+    "dist"
   ],
   "keywords": [
     "setIn",
