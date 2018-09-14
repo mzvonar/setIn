@@ -14,9 +14,6 @@
     "type": "git",
     "url": "git+https://github.com/mzvonar/setIn.git"
   },
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "setIn",
     "set",
