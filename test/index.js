@@ -60,6 +60,22 @@ describe('setIn', function() {
         });
     });
 
+    it('should set value and return new copy of object if path is zero', function() {
+        const newContext = setIn(context, 0, 'value');
+
+        expect(newContext).toNotBe(context);
+        expect(newContext).toEqual({
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1]
+            },
+            type: 'best',
+            0: 'value'
+        });
+    });
+
     it('should add value into new key and return new copy of object by string path', function() {
         const newContext = setIn(context, 'hero', 'batman');
 
@@ -270,6 +286,25 @@ describe('mutableSetIn', function() {
             },
             type: 'best',
             1: 'value'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should set value and return modified object if path is zero', function() {
+        const newContext = mutableSetIn(context, 0, 'value');
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1]
+            },
+            type: 'best',
+            0: 'value'
         };
 
         expect(newContext).toBe(context);

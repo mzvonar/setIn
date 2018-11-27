@@ -9,7 +9,7 @@
 
 function createSetIn(mutable) {
     return function setIn(context, path, value, push) {
-        if(!path) {
+        if(typeof path === 'undefined' || path === null) {
             throw new Error('Path is undefined');
         }
 
