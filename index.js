@@ -47,11 +47,18 @@ function createSetIn(mutable) {
 
             if(push && path.length === 0) {
                 contextType = Object.prototype.toString.call(context[currentPathPart]);
-                if(contextType !== '[object Array]') {
+
+                if(contextType !== '[object Array]' && contextType !== '[object Undefined]') {
                     throw new Error('Cannot push to ' + contextType);
                 }
 
-                copy[currentPathPart] = mutable ? context[currentPathPart] : [].concat(context[currentPathPart]);
+                if(contextType === '[object Undefined]') {
+                    copy[currentPathPart] = [];
+                }
+                else {
+                    copy[currentPathPart] = mutable ? context[currentPathPart] : [].concat(context[currentPathPart]);
+                }
+
                 copy[currentPathPart].push(value);
             }
             else {

@@ -125,6 +125,22 @@ describe('setIn', function() {
         });
     });
 
+    it('should create array if trying to push to undefined', function() {
+        const newContext = setIn(context, ['user', 'tags'], 'first', true);
+
+        expect(newContext).toNotBe(context);
+        expect(newContext).toEqual({
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1],
+                tags: ['first']
+            },
+            type: 'best'
+        });
+    });
+
     it('should throw an error if trying to push to non array', function() {
         const context = {
             user: {
@@ -143,7 +159,7 @@ describe('setIn', function() {
         }).toThrow('Cannot push to [object Object]');
     });
 
-    it('should create contest object with numeric key if it does not exist', function() {
+    it('should create context object with numeric key if it does not exist', function() {
         const newContext = setIn(context, ['user', 3], 'three');
 
         expect(newContext).toNotBe(context);
@@ -361,6 +377,25 @@ describe('mutableSetIn', function() {
                     gender: 'female'
                 },
                 ids: [1, 2]
+            },
+            type: 'best'
+        };
+
+        expect(newContext).toBe(context);
+        expect(newContext).toEqual(output);
+        expect(context).toEqual(output);
+    });
+
+    it('should create array if trying to push to undefined', function() {
+        const newContext = mutableSetIn(context, ['user', 'tags'], 'first', true);
+
+        const output = {
+            user: {
+                profile: {
+                    gender: 'female'
+                },
+                ids: [1],
+                tags: ['first']
             },
             type: 'best'
         };
