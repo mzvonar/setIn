@@ -35,7 +35,7 @@
     "@babel/preset-env": "7.7.7",
     "coveralls": "3.0.9",
     "expect": "1.20.2",
-    "mocha": "^5.2.0",
+    "mocha": "^10.2.0",
     "nyc": "15.0.0"
   }
 }
