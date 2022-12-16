@@ -30,7 +30,7 @@
   },
   "homepage": "https://github.com/mzvonar/setIn#readme",
   "devDependencies": {
-    "@babel/cli": "7.7.7",
+    "@babel/cli": "7.19.3",
     "@babel/core": "7.7.7",
     "@babel/preset-env": "7.7.7",
     "coveralls": "3.0.9",
